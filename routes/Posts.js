@@ -20,11 +20,15 @@ router.post("/edit", async (req, res) => {
   if (username === undefined) return res.send(paramRequired("username"));
   if (password === undefined) return res.send(paramRequired("password"));
 
+  const strSql = `SELECT TOP 100 postId, title, content, postedAt, postedBy FROM posts ORDER BY postId`;
+  const result = await db.executeSQL(strSql);
+
   res.send({
     status: "success",
     data: {
       username: username,
       password: password,
+      result: result,
     },
   });
 });
