@@ -10,12 +10,17 @@ const url = process.env.URL;
 const PORT = process.env.PORT;
 const { auth } = require("./auth");
 
-appPool.connect().then(function (pool) {
-  // app.locals.db = pool;
-  app.listen(PORT, () => {
-    console.log("Server is running on port: " + PORT);
+appPool
+  .connect()
+  .then(function (pool) {
+    // app.locals.db = pool;
+    app.listen(PORT, () => {
+      console.log("Server is running on port: " + PORT);
+    });
+  })
+  .catch(function (err) {
+    console.error("Error creating connection pool", err);
   });
-});
 
 app.use(cors());
 app.use(bodyParser.json({ limit: "50mb" }));
